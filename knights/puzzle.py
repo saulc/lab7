@@ -32,8 +32,7 @@ knowledge1 = And(
     gameknowledge,
     Implication(AKnave, Not(And(AKnave, BKnave))),
 
-    Implication(AKnight, And(AKnave, BKnave)),
-    And(AKnave, BKnave),
+    Implication(AKnight, And(AKnave, BKnave))
 )
 
 # Puzzle 2
