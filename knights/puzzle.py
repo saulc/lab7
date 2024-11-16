@@ -52,7 +52,21 @@ knowledge2 = And(
 # B says "C is a knave."
 # C says "A is a knight."
 knowledge3 = And(
-    # TODO
+    
+    gameknowledge,
+    # Implication(AKnight, Or(AKnight, AKnave)),
+    # Implication(AKnave, Not(Or(AKnight, AKnave))),
+    
+    Implication(BKnight, Implication(AKnight, AKnave)),
+    Implication(BKnave, Not(Implication(AKnight, AKnave))),
+    Implication(BKnight, Implication(AKnave, AKnave)),
+    Implication(BKnave, Not(Implication(AKnave, AKnave))),
+
+    Implication(BKnight, CKnight),
+    Implication(BKnave, Not(CKnight)),
+
+    Implication(CKnight, AKnight),
+    Implication(CKnave, Not(AKnight))
 )
 
 
