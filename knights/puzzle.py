@@ -37,8 +37,12 @@ knowledge0 = And(
 knowledge1 = And(
     gameknowledge,
     Implication(AKnave, Not(And(AKnave, BKnave))),
+    Implication(AKnight, And(AKnave, BKnave)),
 
-    Implication(AKnight, And(AKnave, BKnave))
+    # not sure how to encode B says nothing?
+    # saying nothing is not a lie, which implies B is a knight
+    # Implication(BKnight, ),
+    # Implication(BKnave, Not())
 )
 
 # Puzzle 2
@@ -47,8 +51,8 @@ knowledge1 = And(
 knowledge2 = And(
     gameknowledge,
     Implication(AKnight,Or(And(AKnight, BKnight), And(AKnave, BKnave))),
-    Implication(BKnight,Or(And(AKnight, BKnave), And(AKnave, BKnight))),
     Implication(AKnave, Not(Or(And(AKnight, BKnight), And(AKnave, BKnave)))),
+    Implication(BKnight,Or(And(AKnight, BKnave), And(AKnave, BKnight))),
     Implication(BKnave,Not(Or(And(AKnight, BKnave), And(AKnave, BKnight))))
 )
 
@@ -60,17 +64,21 @@ knowledge2 = And(
 knowledge3 = And(
     
     gameknowledge,
-    # Implication(AKnight, Or(AKnight, AKnave)),
-    # Implication(AKnave, Not(Or(AKnight, AKnave))),
-    
-    Implication(BKnight, Implication(AKnight, AKnave)),
-    Implication(BKnave, Not(Implication(AKnight, AKnave))),
-    Implication(BKnight, Implication(AKnave, AKnave)),
-    Implication(BKnave, Not(Implication(AKnave, AKnave))),
-
-    Implication(BKnight, CKnight),
-    Implication(BKnave, Not(CKnight)),
-
+    # A
+    Implication(AKnight,  Or(AKnight, AKnave)),
+    Implication(AKnave, Not(Or(AKnight, AKnave))),
+     
+    # Implication(BKnight, Implication(AKnight, AKnave)),
+    # Implication(BKnave, Not(Implication(AKnight, AKnave))),
+    # Implication(BKnight, Implication(AKnave, AKnave)),
+    # Implication(BKnave, Not(Implication(AKnave, AKnave))),
+    # B
+    Implication(BKnight, Biconditional(AKnight, AKnave)), 
+    Implication(BKnave, Not(Biconditional(AKnight, AKnave))),
+    # C
+    Implication(BKnight, CKnave),
+    Implication(BKnave, Not(CKnave)),
+    # D
     Implication(CKnight, AKnight),
     Implication(CKnave, Not(AKnight))
 )
