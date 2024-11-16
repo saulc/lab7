@@ -9,11 +9,23 @@ BKnave = Symbol("B is a Knave")
 CKnight = Symbol("C is a Knight")
 CKnave = Symbol("C is a Knave")
 
+
+# Saul Castro
+# Cs4660 Ai Fall 24
+# lab 7 Logic
+
+
 gameknowledge = And(
     
+    # xor
     # Or(And(AKnight, Not(AKnave), And(Not(AKnight), AKnave))),
     # Or(And(BKnight, Not(BKnave), And(Not(BKnight), BKnave))),
     # Or(And(CKnight, Not(CKnave), And(Not(CKnight), CKnave))),
+
+    # game rules, every piece is a Knight or Knave. but not both.
+    # Knights always tell the truth
+    # Knaves always tell a lie
+
     Or(AKnight, AKnave),
     Or(BKnight, BKnave),
     Or(CKnight, CKnave),
@@ -25,7 +37,8 @@ gameknowledge = And(
 # Puzzle 0
 # A says "I am both a knight and a knave."
 knowledge0 = And(
-    
+    # A says something against the rules, which must be a lie
+    # so we expect A to be a Knave
     gameknowledge,
     Implication(AKnight, And(AKnight, AKnave)),
     Implication(AKnave, Not(And(AKnight, AKnave)))
@@ -39,7 +52,8 @@ knowledge1 = And(
     Implication(AKnave, Not(And(AKnave, BKnave))),
     Implication(AKnight, And(AKnave, BKnave)),
 
-    # not sure how to encode B says nothing?
+    # second part give information of what "both" refers too included above
+
     # saying nothing is not a lie, which implies B is a knight
     # Implication(BKnight, ),
     # Implication(BKnave, Not())
@@ -64,7 +78,7 @@ knowledge2 = And(
 knowledge3 = And(
     
     gameknowledge,
-    # A
+    # A makes a true claim, so is likely a Knight
     Implication(AKnight,  Or(AKnight, AKnave)),
     Implication(AKnave, Not(Or(AKnight, AKnave))),
      
