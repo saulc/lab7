@@ -10,10 +10,16 @@ CKnight = Symbol("C is a Knight")
 CKnave = Symbol("C is a Knave")
 
 gameknowledge = And(
-
+    
+    # Or(And(AKnight, Not(AKnave), And(Not(AKnight), AKnave))),
+    # Or(And(BKnight, Not(BKnave), And(Not(BKnight), BKnave))),
+    # Or(And(CKnight, Not(CKnave), And(Not(CKnight), CKnave))),
     Or(AKnight, AKnave),
     Or(BKnight, BKnave),
-    Or(CKnight, CKnave)
+    Or(CKnight, CKnave),
+    Not(And(AKnight, AKnave)),
+    Not(And(BKnight, BKnave)),
+    Not(And(CKnight, CKnave))
     )
 
 # Puzzle 0
