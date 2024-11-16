@@ -30,7 +30,10 @@ knowledge0 = And(
 # B says nothing.
 knowledge1 = And(
     gameknowledge,
-    And(AKnave, BKnave)
+    Implication(AKnave, Not(And(AKnave, BKnave))),
+
+    Implication(AKnight, And(AKnave, BKnave)),
+    And(AKnave, BKnave),
 )
 
 # Puzzle 2
@@ -38,8 +41,10 @@ knowledge1 = And(
 # B says "We are of different kinds."
 knowledge2 = And(
     gameknowledge,
-    Or(And(AKnight, BKnight), And(AKnave, BKnave)),
-    Or(And(AKnight, BKnave), And(AKnave, BKnight))
+    Implication(AKnight,Or(And(AKnight, BKnight), And(AKnave, BKnave))),
+    Implication(BKnight,Or(And(AKnight, BKnave), And(AKnave, BKnight))),
+    Implication(AKnave, Not(Or(And(AKnight, BKnight), And(AKnave, BKnave)))),
+    Implication(BKnave,Not(Or(And(AKnight, BKnave), And(AKnave, BKnight))))
 )
 
 # Puzzle 3
